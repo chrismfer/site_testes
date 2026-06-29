@@ -1,0 +1,62 @@
+/* =================================================================================
+   SCROLL_PREMIUM.CSS — Barra de Progresso Verde Elegante
+   ─────────────────────────────────────────────────────────────────────────
+   Arquivo ÚNICO de referência. Todos os outros arquivos importam este.
+   Para editar o scroll: edite SOMENTE aqui.
+
+   Cor-tema: Verde Padronizado (#00d084)
+   ================================================================================= */
+
+/* ── Container da barra (faixa horizontal no topo da viewport) ── */
+.scroll-progress-container {
+    position: fixed;
+    top: calc(var(--header-height, 0px) + env(safe-area-inset-top, 0px));
+    left: 0;
+    width: 100%;
+    height: 3px;
+    background: rgba(0, 208, 132, 0.05);
+    z-index: 9999;
+    pointer-events: none;
+    transition: top 0.3s ease;
+}
+
+/* ── Barra preenchida: gradiente verde elegante ── */
+.scroll-progress-bar {
+    position: relative;
+    height: 100%;
+    width: 0%;
+    overflow: hidden;
+    background: linear-gradient(90deg, #005938, #00d084);
+    box-shadow:
+        0 0 6px rgba(0, 208, 132, 0.6),
+        0 0 14px rgba(0, 208, 132, 0.3);
+    transition: width 0.05s linear;
+}
+
+/* ── Estado "chegou ao fim" — brilho intensificado ── */
+.scroll-progress-bar.reached-end {
+    background: linear-gradient(90deg, #008b58, #00d084, #00b875);
+    box-shadow:
+        0 0 12px rgba(0, 208, 132, 1),
+        0 0 28px rgba(0, 208, 132, 0.7),
+        0 0 55px rgba(0, 208, 132, 0.35);
+}
+
+/* ── Oculta a barra de progresso quando há um overlay fullscreen ativo ──
+   (galeria de imagens, modal PIX, etc.). Nesses estados o body recebe a
+   classe .no-scroll: o fundo fica imóvel e não há scroll de página para
+   indicar — a barra (z-index 9999) não deve aparecer sobre o overlay. */
+body.no-scroll .scroll-progress-container {
+    display: none !important;
+}
+
+/* ── Admin: o header mobile tem o container dentro dele, sem fixed ── */
+.mobile-admin-header .scroll-progress-container {
+    position: absolute;
+    bottom: 0;
+    top: unset;
+    left: 0;
+    width: 100%;
+    height: 3px;
+    z-index: 101;
+}
